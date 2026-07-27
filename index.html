@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Robert Wang | Personal Homepage</title>
     <style>
         *{margin: 0;padding: 0;box-sizing: border-box;font-family: "Segoe UI", Fira Code, sans-serif;}
@@ -25,11 +25,10 @@
             text-align: center;
             opacity: 0.65;
             font-size: 14px;
-            /* 修改重点：cursor: default 保持普通箭头，不再显示小手 */
             cursor: default;
         }
 
-        /* ===== 分页样式 ===== */
+        /* ===== 分页基础样式 ===== */
         .page{
             transition: opacity 0.4s ease;
         }
@@ -62,11 +61,97 @@
             opacity:0.6;
         }
 
-        /* 彩蛋页面专属样式 */
-        .easter-egg-text{
-            color:#79c0ff;
+        /* ========== 节奏游戏全局样式 ========== */
+        #gameContainer{
+            width: 100%;
+            max-width: 420px;
+            height: 500px;
+            margin: 15px auto;
+            border: 2px solid #36BCF7;
+            border-radius:10px;
+            position:relative;
+            overflow:hidden;
+            background:#161b22;
+        }
+        .judge-line{
+            position:absolute;
+            bottom:100px;
+            width:100%;
+            height:4px;
+            background:#36BCF7;
+            box-shadow: 0 0 6px #36BCF7;
+        }
+        .note{
+            position:absolute;
+            width:60px;
+            height:16px;
+            border-radius:6px;
+            background:#58a6ff;
+            box-shadow: 0 0 4px #58a6ff;
+        }
+        .judge-text{
+            position:absolute;
+            left:50%;
+            transform:translateX(-50%);
+            font-weight:bold;
+            font-size:24px;
+            pointer-events:none;
+            text-shadow: 0 0 4px #000;
+        }
+        .ui-text{
+            margin:8px 0;
+            font-size:17px;
+        }
+        /* 移动端触屏按键 */
+        .touch-key-panel{
+            display:flex;
+            justify-content:center;
+            gap:8px;
+            margin:12px auto;
+            max-width:420px;
+        }
+        .touch-key{
+            flex:1;
+            height:64px;
+            border:2px solid #58a6ff;
+            border-radius:8px;
+            display:grid;
+            place-items:center;
+            font-weight:bold;
             font-size:18px;
-            line-height: 2.2;
+            user-select:none;
+            -webkit-user-select:none;
+        }
+        .touch-key:active{
+            background:#238636;
+        }
+        /* 设置面板 */
+        .setting-row{
+            display:flex;
+            gap:10px;
+            justify-content:center;
+            flex-wrap:wrap;
+            margin:10px 0;
+        }
+        select{
+            padding:8px 12px;
+            background:#21262d;
+            color:#fff;
+            border:1px solid #30363d;
+            border-radius:6px;
+        }
+        /* 排行榜面板 */
+        .rank-board{
+            border:1px solid #30363d;
+            max-width:360px;
+            margin:12px auto;
+            padding:10px;
+            border-radius:8px;
+        }
+        .rank-item{
+            display:flex;
+            justify-content:space-between;
+            padding:4px 8px;
         }
     </style>
 </head>
@@ -74,22 +159,17 @@
 
     <!-- ========== 第一页（首页） ========== -->
     <div id="page1" class="page">
-        <!-- 打字动画 -->
         <div class="center">
             <img src="https://readme-typing-svg.demolab.com/?lines=Hi,+I'm+Robert+Wang;GitHub+Beginner;Frontend+Learner;Keep+Learning+Every+Day&font=Fira%20Code&center=true&width=600&height=50&color=36BCF7" alt="typing">
         </div>
-
-        <!-- 头像 -->
         <div class="center">
             <img class="avatar" src="./avatar.jpg" alt="avatar">
         </div>
-
         <div class="center">
             <h1>Hello, I'm Robert Wang</h1>
             <h3>GitHub Beginner | Frontend Learner | Coding Enthusiast</h3>
         </div>
         <hr>
-
         <div class="info-block">
             <h2>🧾 Basic Information</h2>
             <p>GitHub Username：Triangle-8837</p>
@@ -98,7 +178,6 @@
             <p>Email：<a href="mailto:jcnzybwj2c@privaterelay.appleid.com">jcnzybwj2c@privaterelay.appleid.com</a></p>
         </div>
         <hr>
-
         <div>
             <h2 class="center">🛠️ Tech Stack</h2>
             <div class="badge-box">
@@ -116,12 +195,10 @@
             </div>
         </div>
         <hr>
-
         <div class="center">
             <img src="https://komarev.com/ghpvc/?username=Triangle-8837&label=Profile%20Visitors&color=0e75b6&style=flat-square">
         </div>
         <hr>
-
         <div class="info-block">
             <h2 class="center">📝 Learning Plans</h2>
             <ul style="width:fit-content;margin:0 auto;line-height:2">
@@ -131,8 +208,6 @@
             </ul>
             <p class="motto center">Personal Motto: To choose time is to save time.</p>
         </div>
-
-        <!-- 🐍 Contribution Snake -->
         <div class="center" style="margin-top:40px;">
             <picture>
                 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake-dark.svg">
@@ -149,7 +224,6 @@
             <h3>Things I love to do in spare time</h3>
         </div>
         <hr>
-
         <div class="info-block">
             <h2>🎮 Video Games</h2>
             <ul style="width:fit-content;margin:0 auto;line-height:2;">
@@ -159,7 +233,6 @@
             </ul>
         </div>
         <hr>
-
         <div class="info-block">
             <h2>📷 Photography</h2>
             <ul style="width:fit-content;margin:0 auto;line-height:2;">
@@ -168,27 +241,58 @@
             </ul>
         </div>
         <hr>
-
         <div class="info-block">
             <h2>💻 Coding</h2>
             <p class="center">Programming is not only my study direction, but also my hobby.</p>
         </div>
     </div>
 
-    <!-- ========== 彩蛋隐藏页面 ========== -->
+    <!-- ========== 彩蛋页面｜节奏音游完整界面 ========== -->
     <div id="easterEggPage" class="page page-hidden">
         <div class="center">
-            <h1>✨ Secret Easter Egg</h1>
+            <h1>✨ Hidden Rhythm Game</h1>
             <hr>
-            <div class="easter-egg-text">
-                <p>Congratulations on finding the hidden secret!</p>
-                <p>Keep coding, keep exploring, keep chasing what you love.</p>
-                <p>Every effort will pay off eventually.</p>
-                <br>
-                <p>— Robert Wang</p>
+
+            <div class="setting-row">
+                <div>
+                    <label>难度：</label>
+                    <select id="diffSelect">
+                        <option value="easy">简单（慢速）</option>
+                        <option value="normal" selected>普通</option>
+                        <option value="hard">困难（高速高密度）</option>
+                    </select>
+                </div>
+                <div>
+                    <label>轨道数量：</label>
+                    <select id="laneSelect">
+                        <option value="3">3键模式</option>
+                        <option value="4" selected>4键模式</option>
+                    </select>
+                </div>
             </div>
-            <br>
-            <button class="page-btn" id="backNormal">← Back to Homepage</button>
+
+            <p class="ui-text">分数：<span id="scoreText">0</span>｜连击：<span id="comboText">0</span>｜最高分：<span id="highScoreText">0</span></p>
+
+            <div id="gameContainer">
+                <div class="judge-line"></div>
+            </div>
+
+            <!-- 移动端触屏按键 -->
+            <div class="touch-key-panel" id="touchPanel">
+                <div class="touch-key" data-key="0">D</div>
+                <div class="touch-key" data-key="1">F</div>
+                <div class="touch-key" data-key="2">J</div>
+                <div class="touch-key" data-key="3">K</div>
+            </div>
+
+            <div style="margin:15px 0;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                <button class="page-btn" id="startGameBtn">开始对局</button>
+                <button class="page-btn" id="backNormal">← 返回首页</button>
+            </div>
+
+            <h3>🏆 本地排行榜（浏览器存储）</h3>
+            <div class="rank-board" id="rankBoard"></div>
+            <p style="opacity:0.6;font-size:13px;">提示：清除浏览器数据会清空榜单</p>
         </div>
     </div>
 
@@ -203,69 +307,259 @@
         <p style="margin-top:6px;">Built with HTML & CSS | Hosted on GitHub Pages</p>
     </footer>
 
+    <!-- BGM音频资源（免费开源节拍曲） -->
+    <audio id="bgmAudio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3?filename=tech-house-short-loop-118-bpm.mp3" type="audio/mpeg">
+    
 
-    <!-- JS逻辑 -->
-    <script>
-        // 页面元素
-        const page1 = document.getElementById('page1');
-        const page2 = document.getElementById('page2');
-        const eggPage = document.getElementById('easterEggPage');
-        const btn1 = document.getElementById('btnPage1');
-        const btn2 = document.getElementById('btnPage2');
-        const backBtn = document.getElementById('backNormal');
-        const footerArea = document.getElementById('clickFooter');
+<script>
+// ========== 页面切换与彩蛋触发 ==========
+const page1 = document.getElementById('page1');
+const page2 = document.getElementById('page2');
+const eggPage = document.getElementById('easterEggPage');
+const btn1 = document.getElementById('btnPage1');
+const btn2 = document.getElementById('btnPage2');
+const backBtn = document.getElementById('backNormal');
+const footerArea = document.getElementById('clickFooter');
 
-        // 普通分页切换
-        btn1.addEventListener('click', ()=>{
-            resetAllPage();
-            page1.classList.remove('page-hidden');
-            btn1.disabled = true;
-            btn2.disabled = false;
-            window.scrollTo({top:0,behavior:'smooth'});
-        })
-        btn2.addEventListener('click', ()=>{
-            resetAllPage();
-            page2.classList.remove('page-hidden');
-            btn1.disabled = false;
-            btn2.disabled = true;
-            window.scrollTo({top:0,behavior:'smooth'});
-        })
-        backBtn.addEventListener('click',()=>{
-            resetAllPage();
-            page1.classList.remove('page-hidden');
-            btn1.disabled = true;
-            btn2.disabled = false;
-            window.scrollTo({top:0,behavior:'smooth'});
-        })
+btn1.onclick = ()=>{
+    resetAllPage();
+    page1.classList.remove('page-hidden');
+    btn1.disabled = true; btn2.disabled = false;
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+btn2.onclick = ()=>{
+    resetAllPage();
+    page2.classList.remove('page-hidden');
+    btn1.disabled = false; btn2.disabled = true;
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+backBtn.onclick = ()=>{
+    stopGame();
+    resetAllPage();
+    page1.classList.remove('page-hidden');
+    btn1.disabled = true; btn2.disabled = false;
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetAllPage(){
+    page1.classList.add('page-hidden');
+    page2.classList.add('page-hidden');
+    eggPage.classList.add('page-hidden');
+}
+// 底部5连击彩蛋
+let clickCount = 0;
+let timer = null;
+footerArea.onclick = ()=>{
+    clickCount++;
+    clearTimeout(timer);
+    timer = setTimeout(()=>clickCount=0,3000);
+    if(clickCount >=5){
+        resetAllPage();
+        eggPage.classList.remove('page-hidden');
+        clickCount=0;clearTimeout(timer);
+        loadRankList();
+        updateHighScoreUI();
+        window.scrollTo({top:0,behavior:'smooth'});
+    }
+}
 
-        function resetAllPage(){
-            page1.classList.add('page-hidden');
-            page2.classList.add('page-hidden');
-            eggPage.classList.add('page-hidden');
+// ========== 音游核心全局变量 ==========
+const gameContainer = document.getElementById('gameContainer');
+const scoreText = document.getElementById('scoreText');
+const comboText = document.getElementById('comboText');
+const highScoreText = document.getElementById('highScoreText');
+const startGameBtn = document.getElementById('startGameBtn');
+const diffSelect = document.getElementById('diffSelect');
+const laneSelect = document.getElementById('laneSelect');
+const touchPanel = document.getElementById('touchPanel');
+const bgmAudio = document.getElementById('bgmAudio');
+
+let score = 0;
+let combo = 0;
+let gameRunning = false;
+let noteList = [];
+let animationId;
+let noteSpawnTimer = null;
+// 按键映射
+const keyName = ['d','f','j','k'];
+// 难度配置
+const difficultyConfig = {
+    easy:{speed:1.8, interval:1300},
+    normal:{speed:2.7, interval:950},
+    hard:{speed:3.6, interval:650}
+};
+let laneCount = 4;
+let lanePos = [45,125,215,295];
+
+// ===== 本地存储排行榜逻辑 =====
+function getRankData(){
+    let raw = localStorage.getItem("rhythmRank");
+    return raw ? JSON.parse(raw) : [];
+}
+function saveRank(scoreVal){
+    let list = getRankData();
+    list.push({score:scoreVal, time:new Date().toLocaleString()});
+    list.sort((a,b)=>b.score - a.score);
+    list = list.slice(0,8); //只保存前8条记录
+    localStorage.setItem("rhythmRank", JSON.stringify(list));
+    loadRankList();
+}
+function loadRankList(){
+    const board = document.getElementById("rankBoard");
+    const list = getRankData();
+    if(list.length ===0){
+        board.innerHTML = "<p class='center'>暂无对局记录，快来挑战！</p>";
+        return;
+    }
+    let html = "";
+    list.forEach((item,idx)=>{
+        html += `<div class="rank-item"><span>No.${idx+1}</span><span>${item.score}分</span><span style="font-size:12px;opacity:0.7">${item.time}</span></div>`;
+    })
+    board.innerHTML = html;
+}
+function getLocalHighScore(){
+    const list = getRankData();
+    return list.length>0 ? list[0].score : 0;
+}
+function updateHighScoreUI(){
+    highScoreText.textContent = getLocalHighScore();
+}
+
+// ===== 更新轨道布局 =====
+function updateLaneLayout(){
+    laneCount = parseInt(laneSelect.value);
+    if(laneCount ===3){
+        lanePos = [70,155,260];
+        touchPanel.children[3].style.display = "none";
+    }else{
+        lanePos = [45,125,215,295];
+        touchPanel.children[3].style.display = "grid";
+    }
+}
+laneSelect.onchange = updateLaneLayout;
+updateLaneLayout();
+
+// ===== 音符生成、判定、渲染 =====
+function spawnNote(){
+    if(!gameRunning) return;
+    const laneIdx = Math.floor(Math.random() * laneCount);
+    const note = document.createElement('div');
+    note.className = 'note';
+    note.style.left = lanePos[laneIdx] + 'px';
+    note.style.top = '-20px';
+    note.dataset.lane = laneIdx;
+    gameContainer.appendChild(note);
+    noteList.push({el:note, lane:laneIdx, y:-20});
+}
+function showJudge(text, x){
+    const jText = document.createElement('div');
+    jText.className = 'judge-text';
+    jText.style.left = (x+30)+'px';
+    jText.style.bottom = '110px';
+    jText.textContent = text;
+    if(text ==="Perfect") jText.style.color="#39d353";
+    else if(text ==="Good") jText.style.color="#58a6ff";
+    else jText.style.color="#f85149";
+    gameContainer.appendChild(jText);
+    setTimeout(()=>jText.remove(),650);
+}
+function gameLoop(){
+    if(!gameRunning) return;
+    const judgeLineY = gameContainer.offsetHeight - 100;
+    const speed = difficultyConfig[diffSelect.value].speed;
+    for(let i=noteList.length-1;i>=0;i--){
+        const n = noteList[i];
+        n.y += speed;
+        n.el.style.top = n.y + 'px';
+        if(n.y > judgeLineY + 40){
+            combo = 0;
+            comboText.textContent = combo;
+            showJudge("Miss", lanePos[n.lane]);
+            n.el.remove();
+            noteList.splice(i,1);
         }
-
-        // ===== 彩蛋连续点击逻辑 =====
-        let clickCount = 0;
-        let timer = null;
-        const NEED_CLICK_TIMES = 5; // 需要连续点击5次
-
-        footerArea.addEventListener('click', ()=>{
-            clickCount++;
-            // 重置倒计时
-            clearTimeout(timer);
-            timer = setTimeout(()=>{
-                clickCount = 0;
-            },3000); // 3秒不点击就清零计数
-
-            if(clickCount >= NEED_CLICK_TIMES){
-                // 触发彩蛋界面
-                resetAllPage();
-                eggPage.classList.remove('page-hidden');
-                clickCount = 0;
-                clearTimeout(timer);
-                window.scrollTo({top:0,behavior:'smooth'});
+    }
+    animationId = requestAnimationFrame(gameLoop);
+}
+// 按键判定统一处理
+function hitLane(laneIdx){
+    if(!gameRunning) return;
+    const judgeY = gameContainer.offsetHeight - 100;
+    let targetNote = null;
+    let minDist = 999;
+    for(const n of noteList){
+        if(n.lane === laneIdx){
+            const dist = Math.abs(n.y - judgeY);
+            if(dist < minDist){
+                minDist = dist;
+                targetNote = n;
             }
-        })
-    </script>
+        }
+    }
+    if(targetNote && minDist < 50){
+        if(minDist <18){
+            score +=100;
+            showJudge("Perfect", lanePos[laneIdx]);
+        }else{
+            score +=50;
+            showJudge("Good", lanePos[laneIdx]);
+        }
+        combo++;
+        scoreText.textContent = score;
+        comboText.textContent = combo;
+        targetNote.el.remove();
+        noteList = noteList.filter(x=>x!==targetNote);
+    }
+}
+// PC键盘监听
+document.addEventListener('keydown',e=>{
+    const k = e.key.toLowerCase();
+    const idx = keyName.indexOf(k);
+    if(idx !== -1 && idx < laneCount) hitLane(idx);
+})
+// 移动端触屏按钮绑定
+document.querySelectorAll(".touch-key").forEach(btn=>{
+    btn.addEventListener("touchstart",ev=>{
+        ev.preventDefault();
+        const idx = parseInt(btn.dataset.key);
+        if(idx < laneCount) hitLane(idx);
+    })
+})
+
+// 停止游戏全部资源
+function stopGame(){
+    gameRunning = false;
+    cancelAnimationFrame(animationId);
+    clearInterval(noteSpawnTimer);
+    bgmAudio.pause();
+    bgmAudio.currentTime = 0;
+    noteList.forEach(n=>n.el.remove());
+    noteList = [];
+}
+
+// 开始游戏按钮
+startGameBtn.onclick = async ()=>{
+    if(gameRunning) return;
+    stopGame();
+    // 重置对局数据
+    score =0; combo=0;
+    scoreText.textContent=0;comboText.textContent=0;
+    // 播放BGM
+    try{ await bgmAudio.play(); }catch(e){console.log("音频等待交互");}
+    gameRunning = true;
+    gameLoop();
+    const interval = difficultyConfig[diffSelect.value].interval;
+    noteSpawnTimer = setInterval(()=>{
+        if(gameRunning) spawnNote();
+    }, interval);
+    // 一局时长45秒
+    setTimeout(()=>{
+        stopGame();
+        saveRank(score);
+        updateHighScoreUI();
+        alert(`对局结束！得分：${score}｜最高连击：${combo}`);
+    },45000);
+}
+</script>
 </body>
 </html>

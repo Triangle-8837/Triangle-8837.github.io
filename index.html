@@ -15,6 +15,19 @@
         .info-block{margin:25px 0;line-height:2;}
         .badge-box{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:15px 0;}
         .motto{margin:20px;color:#58a6ff;font-style:italic;}
+        /* 贪吃蛇图片自适应 */
+        .snake-img{max-width:100%;width:700px;height:auto;}
+        a{color:#58a6ff;text-decoration:none;}
+        a:hover{text-decoration:underline;}
+        /* 底部版权 */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #30363d;
+            text-align: center;
+            opacity: 0.65;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +52,7 @@
         <p>GitHub Username：Triangle-8837</p>
         <p>Pronouns：he/him</p>
         <p>Joined GitHub：2026 July</p>
-        <p>Email：<a href="mailto:jcnzybwj2c@privaterelay.appleid.com" style="color:#58a6ff">jcnzybwj2c@privaterelay.appleid.com</a></p>
+        <p>Email：<a href="mailto:jcnzybwj2c@privaterelay.appleid.com">jcnzybwj2c@privaterelay.appleid.com</a></p>
     </div>
     <hr>
 
@@ -52,6 +65,8 @@
             <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
             <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
             <img src="https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=black"/>
+            <!-- 新增 VSCode 徽章 -->
+            <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white"/>
         </div>
         <div class="badge-box">
             <img src="https://img.shields.io/badge/Next_Learn-Vue.js-green?style=flat-square"/>
@@ -75,8 +90,19 @@
         <p class="motto center">Personal Motto: To choose time is to save time.</p>
     </div>
 
+    <!-- 🐍 Contribution Snake（明暗模式自动切换） -->
     <div class="center" style="margin-top:40px;">
-        <img width="700" src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake.svg">
+        <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake-dark.svg">
+            <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake.svg">
+            <img class="snake-img" alt="GitHub Contribution Snake" src="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake.svg">
+        </picture>
     </div>
+
+    <!-- 📄 Footer 版权文字 -->
+    <footer>
+        <p>Copyright © 2026 Robert Wang. All Rights Reserved.</p>
+        <p style="margin-top:6px;">Built with HTML & CSS | Hosted on GitHub Pages</p>
+    </footer>
 </body>
 </html>

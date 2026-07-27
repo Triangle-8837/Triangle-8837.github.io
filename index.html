@@ -61,77 +61,13 @@
             opacity:0.6;
         }
 
-        /* ========== 节奏游戏全局样式 ========== */
-        #gameContainer{
-            width: 100%;
-            max-width: 420px;
-            height: 500px;
-            margin: 15px auto;
-            border: 2px solid #36BCF7;
-            border-radius:10px;
-            position:relative;
-            overflow:hidden;
-            background:#161b22;
-        }
-        .judge-line{
-            position:absolute;
-            bottom:100px;
-            width:100%;
-            height:4px;
-            background:#36BCF7;
-            box-shadow: 0 0 6px #36BCF7;
-        }
-        .note{
-            position:absolute;
-            width:65px;
-            height:18px;
-            border-radius:6px;
-            background:#58a6ff;
-            box-shadow: 0 0 4px #58a6ff;
-        }
-        .judge-text{
-            position:absolute;
-            left:50%;
-            transform:translateX(-50%);
-            font-weight:bold;
-            font-size:24px;
-            pointer-events:none;
-            text-shadow: 0 0 4px #000;
-        }
-        .ui-text{
-            margin:8px 0;
-            font-size:17px;
-        }
-        /* 移动端触屏按键 */
-        .touch-key-panel{
+        /* ========== 扫雷样式 ========== */
+        .mine-setting{
             display:flex;
-            justify-content:center;
-            gap:8px;
-            margin:12px auto;
-            max-width:420px;
-        }
-        .touch-key{
-            flex:1;
-            height:64px;
-            border:2px solid #58a6ff;
-            border-radius:8px;
-            display:grid;
-            place-items:center;
-            font-weight:bold;
-            font-size:18px;
-            user-select:none;
-            -webkit-user-select:none;
-        }
-        .touch-key:active{
-            background:#238636;
-        }
-        /* 设置面板 */
-        .setting-row{
-            display:flex;
-            gap:10px;
+            gap:12px;
             justify-content:center;
             flex-wrap:wrap;
-            margin:10px 0;
+            margin:15px 0;
         }
         select{
             padding:8px 12px;
@@ -140,19 +76,49 @@
             border:1px solid #30363d;
             border-radius:6px;
         }
-        /* 排行榜面板 */
-        .rank-board{
-            border:1px solid #30363d;
-            max-width:360px;
-            margin:12px auto;
-            padding:10px;
-            border-radius:8px;
-        }
-        .rank-item{
+        .mine-info{
             display:flex;
-            justify-content:space-between;
-            padding:4px 8px;
+            justify-content:center;
+            gap:30px;
+            font-size:18px;
+            margin:10px 0;
         }
+        #mineBoard{
+            display:grid;
+            border:2px solid #36BCF7;
+            margin:15px auto;
+            width:fit-content;
+        }
+        .cell{
+            width:26px;
+            height:26px;
+            background:#30363d;
+            border:1px solid #21262d;
+            display:grid;
+            place-items:center;
+            font-weight:bold;
+            cursor:pointer;
+            user-select:none;
+        }
+        .cell.open{
+            background:#161b22;
+            cursor:default;
+        }
+        .cell.mine{
+            background:#da3633;
+        }
+        .cell.flag{
+            color:#f0c442;
+        }
+        /* 数字颜色区分 */
+        .c1{color:#58a6ff;}
+        .c2{color:#39d353;}
+        .c3{color:#f85149;}
+        .c4{color:#a371f7;}
+        .c5{color:#f78166;}
+        .c6{color:#2ea043;}
+        .c7{color:#e3b341;}
+        .c8{color:#8b949e;}
     </style>
 </head>
 <body>
@@ -247,52 +213,29 @@
         </div>
     </div>
 
-    <!-- ========== 彩蛋页面｜节奏音游完整界面 ========== -->
+    <!-- ========== 彩蛋页面｜扫雷游戏 ========== -->
     <div id="easterEggPage" class="page page-hidden">
         <div class="center">
-            <h1>✨ Hidden Rhythm Game</h1>
+            <h1>✨ Hidden Game: Minesweeper</h1>
             <hr>
+            <p>左键打开格子｜右键标记地雷🚩</p>
 
-            <div class="setting-row">
-                <div>
-                    <label>难度：</label>
-                    <select id="diffSelect">
-                        <option value="easy">简单（慢速）</option>
-                        <option value="normal" selected>普通</option>
-                        <option value="hard">困难（高速高密度）</option>
-                    </select>
-                </div>
-                <div>
-                    <label>轨道数量：</label>
-                    <select id="laneSelect">
-                        <option value="3">3键模式</option>
-                        <option value="4" selected>4键模式</option>
-                    </select>
-                </div>
-            </div>
-
-            <p class="ui-text">分数：<span id="scoreText">0</span>｜连击：<span id="comboText">0</span>｜最高分：<span id="highScoreText">0</span></p>
-
-            <div id="gameContainer">
-                <div class="judge-line"></div>
-            </div>
-
-            <!-- 移动端触屏按键 -->
-            <div class="touch-key-panel" id="touchPanel">
-                <div class="touch-key" data-key="0">D</div>
-                <div class="touch-key" data-key="1">F</div>
-                <div class="touch-key" data-key="2">J</div>
-                <div class="touch-key" data-key="3">K</div>
-            </div>
-
-            <div style="margin:15px 0;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-                <button class="page-btn" id="startGameBtn">开始对局</button>
+            <div class="mine-setting">
+                <select id="diffMine">
+                    <option value="easy">初级 9×9｜10雷</option>
+                    <option value="normal" selected>中级 16×16｜40雷</option>
+                    <option value="hard">高级 16×30｜99雷</option>
+                </select>
+                <button class="page-btn" id="restartMine">重新开局</button>
                 <button class="page-btn" id="backNormal">← 返回首页</button>
             </div>
 
-            <h3>🏆 本地排行榜（浏览器存储）</h3>
-            <div class="rank-board" id="rankBoard"></div>
-            <p style="opacity:0.6;font-size:13px;">提示：清除浏览器数据会清空榜单</p>
+            <div class="mine-info">
+                <span>剩余地雷：<span id="mineCount">40</span></span>
+                <span>用时：<span id="timeCount">0</span>s</span>
+            </div>
+
+            <div id="mineBoard"></div>
         </div>
     </div>
 
@@ -307,13 +250,8 @@
         <p style="margin-top:6px;">Built with HTML & CSS | Hosted on GitHub Pages</p>
     </footer>
 
-    <!-- BGM音频资源 -->
-    <audio id="bgmAudio" preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3?filename=tech-house-short-loop-118-bpm.mp3" type="audio/mpeg">
-    
-
 <script>
-// ========== 页面切换与彩蛋触发 ==========
+// ========== 页面切换 & 底部彩蛋5连击触发 ==========
 const page1 = document.getElementById('page1');
 const page2 = document.getElementById('page2');
 const eggPage = document.getElementById('easterEggPage');
@@ -322,23 +260,19 @@ const btn2 = document.getElementById('btnPage2');
 const backBtn = document.getElementById('backNormal');
 const footerArea = document.getElementById('clickFooter');
 
-// 切换页面时强制停止游戏，杜绝后台音乐持续播放
 btn1.onclick = ()=>{
-    stopGame();
     resetAllPage();
     page1.classList.remove('page-hidden');
     btn1.disabled = true; btn2.disabled = false;
     window.scrollTo({top:0,behavior:'smooth'});
 }
 btn2.onclick = ()=>{
-    stopGame();
     resetAllPage();
     page2.classList.remove('page-hidden');
     btn1.disabled = false; btn2.disabled = true;
     window.scrollTo({top:0,behavior:'smooth'});
 }
 backBtn.onclick = ()=>{
-    stopGame();
     resetAllPage();
     page1.classList.remove('page-hidden');
     btn1.disabled = true; btn2.disabled = false;
@@ -349,7 +283,7 @@ function resetAllPage(){
     page2.classList.add('page-hidden');
     eggPage.classList.add('page-hidden');
 }
-// 底部5连击彩蛋
+
 let clickCount = 0;
 let timer = null;
 footerArea.onclick = ()=>{
@@ -360,215 +294,199 @@ footerArea.onclick = ()=>{
         resetAllPage();
         eggPage.classList.remove('page-hidden');
         clickCount=0;clearTimeout(timer);
-        loadRankList();
-        updateHighScoreUI();
+        initMineGame();
         window.scrollTo({top:0,behavior:'smooth'});
     }
 }
 
-// ========== 音游全局变量 ==========
-const gameContainer = document.getElementById('gameContainer');
-const scoreText = document.getElementById('scoreText');
-const comboText = document.getElementById('comboText');
-const highScoreText = document.getElementById('highScoreText');
-const startGameBtn = document.getElementById('startGameBtn');
-const diffSelect = document.getElementById('diffSelect');
-const laneSelect = document.getElementById('laneSelect');
-const touchPanel = document.getElementById('touchPanel');
-const bgmAudio = document.getElementById('bgmAudio');
+// ========== 扫雷核心逻辑 ==========
+const mineBoard = document.getElementById('mineBoard');
+const diffMine = document.getElementById('diffMine');
+const restartMine = document.getElementById('restartMine');
+const mineCountText = document.getElementById('mineCount');
+const timeCountText = document.getElementById('timeCount');
 
-let score = 0;
-let combo = 0;
-let gameRunning = false;
-let noteList = [];
-let animationId;
-let noteSpawnTimer = null;
-const keyName = ['d','f','j','k'];
-// 难度配置
-const difficultyConfig = {
-    easy:{speed:1.6, interval:1350},
-    normal:{speed:2.4, interval:1000},
-    hard:{speed:3.2, interval:700}
+let ROW, COL, MINE_NUM;
+let grid = [];
+let opened = [];
+let flagged = [];
+let gameOver = false;
+let firstClick = true;
+let timerId = null;
+let time = 0;
+
+const DIFF_CFG = {
+    easy: {r:9,c:9,m:10},
+    normal:{r:16,c:16,m:40},
+    hard:{r:16,c:30,m:99}
 };
-let laneCount = 4;
-let lanePos = [40,120,210,290];
 
-// ===== 本地存储排行榜 =====
-function getRankData(){
-    let raw = localStorage.getItem("rhythmRank");
-    return raw ? JSON.parse(raw) : [];
-}
-function saveRank(scoreVal){
-    let list = getRankData();
-    list.push({score:scoreVal, time:new Date().toLocaleString()});
-    list.sort((a,b)=>b.score - a.score);
-    list = list.slice(0,8);
-    localStorage.setItem("rhythmRank", JSON.stringify(list));
-    loadRankList();
-}
-function loadRankList(){
-    const board = document.getElementById("rankBoard");
-    const list = getRankData();
-    if(list.length ===0){
-        board.innerHTML = "<p class='center'>暂无对局记录，快来挑战！</p>";
-        return;
-    }
-    let html = "";
-    list.forEach((item,idx)=>{
-        html += `<div class="rank-item"><span>No.${idx+1}</span><span>${item.score}分</span><span style="font-size:12px;opacity:0.7">${item.time}</span></div>`;
-    })
-    board.innerHTML = html;
-}
-function getLocalHighScore(){
-    const list = getRankData();
-    return list.length>0 ? list[0].score : 0;
-}
-function updateHighScoreUI(){
-    highScoreText.textContent = getLocalHighScore();
-}
+// 初始化游戏
+function initMineGame(){
+    clearInterval(timerId);
+    time = 0;
+    timeCountText.textContent = 0;
+    gameOver = false;
+    firstClick = true;
+    const cfg = DIFF_CFG[diffMine.value];
+    ROW = cfg.r; COL = cfg.c; MINE_NUM = cfg.m;
+    mineCountText.textContent = MINE_NUM;
 
-// ===== 更新轨道布局 =====
-function updateLaneLayout(){
-    laneCount = parseInt(laneSelect.value);
-    if(laneCount ===3){
-        lanePos = [60,150,260];
-        touchPanel.children[3].style.display = "none";
-    }else{
-        lanePos = [40,120,210,290];
-        touchPanel.children[3].style.display = "grid";
-    }
-}
-laneSelect.onchange = updateLaneLayout;
-updateLaneLayout();
+    grid = Array(ROW).fill().map(()=>Array(COL).fill(0));
+    opened = Array(ROW).fill().map(()=>Array(COL).fill(false));
+    flagged = Array(ROW).fill().map(()=>Array(COL).fill(false));
 
-// ===== 音符生成、判定【重点：放大判定窗口，更容易击中】 =====
-function spawnNote(){
-    if(!gameRunning) return;
-    const laneIdx = Math.floor(Math.random() * laneCount);
-    const note = document.createElement('div');
-    note.className = 'note';
-    note.style.left = lanePos[laneIdx] + 'px';
-    note.style.top = '-20px';
-    note.dataset.lane = laneIdx;
-    gameContainer.appendChild(note);
-    noteList.push({el:note, lane:laneIdx, y:-20});
-}
-function showJudge(text, x){
-    const jText = document.createElement('div');
-    jText.className = 'judge-text';
-    jText.style.left = (x+30)+'px';
-    jText.style.bottom = '110px';
-    jText.textContent = text;
-    if(text ==="Perfect") jText.style.color="#39d353";
-    else if(text ==="Good") jText.style.color="#58a6ff";
-    else jText.style.color="#f85149";
-    gameContainer.appendChild(jText);
-    setTimeout(()=>jText.remove(),650);
-}
-function gameLoop(){
-    if(!gameRunning) return;
-    const judgeLineY = gameContainer.offsetHeight - 100;
-    const speed = difficultyConfig[diffSelect.value].speed;
-    for(let i=noteList.length-1;i>=0;i--){
-        const n = noteList[i];
-        n.y += speed;
-        n.el.style.top = n.y + 'px';
-        if(n.y > judgeLineY + 60){
-            combo = 0;
-            comboText.textContent = combo;
-            showJudge("Miss", lanePos[n.lane]);
-            n.el.remove();
-            noteList.splice(i,1);
+    mineBoard.style.gridTemplateRows = `repeat(${ROW}, 26px)`;
+    mineBoard.style.gridTemplateColumns = `repeat(${COL}, 26px)`;
+    mineBoard.innerHTML = "";
+
+    for(let y=0;y<ROW;y++){
+        for(let x=0;x<COL;x++){
+            const div = document.createElement('div');
+            div.className = "cell";
+            div.dataset.x = x;
+            div.dataset.y = y;
+            // 左键点开
+            div.onclick = ()=>openCell(x,y);
+            // 右键插旗
+            div.oncontextmenu = (e)=>{
+                e.preventDefault();
+                markFlag(x,y);
+            };
+            mineBoard.appendChild(div);
         }
     }
-    animationId = requestAnimationFrame(gameLoop);
 }
 
-// 按键判定逻辑【大幅放宽判定区间】
-function hitLane(laneIdx){
-    if(!gameRunning) return;
-    const judgeY = gameContainer.offsetHeight - 100;
-    let targetNote = null;
-    let minDist = 999;
-    for(const n of noteList){
-        if(n.lane === laneIdx){
-            const dist = Math.abs(n.y - judgeY);
-            if(dist < minDist){
-                minDist = dist;
-                targetNote = n;
+// 首次点击后生成地雷（保证第一下永远不踩雷）
+function generateMine(safeX,safeY){
+    let placed = 0;
+    while(placed < MINE_NUM){
+        const rx = Math.floor(Math.random()*COL);
+        const ry = Math.floor(Math.random()*ROW);
+        // 避开首次点击位置
+        if((rx===safeX&&ry===safeY) || grid[ry][rx]===-1) continue;
+        grid[ry][rx] = -1;
+        placed++;
+    }
+    // 计算周围地雷数
+    for(let y=0;y<ROW;y++){
+        for(let x=0;x<COL;x++){
+            if(grid[y][x]===-1) continue;
+            grid[y][x] = countAroundMine(x,y);
+        }
+    }
+}
+
+// 统计周围地雷
+function countAroundMine(x,y){
+    let cnt =0;
+    for(let dy=-1;dy<=1;dy++){
+        for(let dx=-1;dx<=1;dx++){
+            const nx = x+dx; const ny = y+dy;
+            if(nx>=0&&nx<COL&&ny>=0&&ny<ROW && grid[ny][nx]===-1) cnt++;
+        }
+    }
+    return cnt;
+}
+
+// 打开格子
+function openCell(x,y){
+    if(gameOver || opened[y][x] || flagged[y][x]) return;
+    if(firstClick){
+        firstClick = false;
+        generateMine(x,y);
+        // 启动计时器
+        timerId = setInterval(()=>{
+            time++;
+            timeCountText.textContent = time;
+        },1000);
+    }
+    // 踩到地雷，游戏失败
+    if(grid[y][x]===-1){
+        gameOver = true;
+        clearInterval(timerId);
+        showAllMine();
+        alert("💥 You stepped on a mine! Game Over");
+        return;
+    }
+    floodOpen(x,y);
+    checkWin();
+}
+
+// 空白格子扩散打开
+function floodOpen(x,y){
+    if(x<0||x>=COL||y<0||y>=ROW) return;
+    if(opened[y][x] || flagged[y][x]) return;
+    opened[y][x] = true;
+    const cell = getCellDom(x,y);
+    cell.classList.add("open");
+    const num = grid[y][x];
+    if(num>0){
+        cell.textContent = num;
+        cell.classList.add(`c${num}`);
+    }else{
+        // 空白，递归打开周围
+        for(let dy=-1;dy<=1;dy++){
+            for(let dx=-1;dx<=1;dx++){
+                floodOpen(x+dx,y+dy);
             }
         }
     }
-    // ========= 关键修复：扩大判定范围，更容易击中 =========
-    if(targetNote && minDist < 65){
-        if(minDist <22){
-            score +=100;
-            showJudge("Perfect", lanePos[laneIdx]);
-        }else{
-            score +=50;
-            showJudge("Good", lanePos[laneIdx]);
-        }
-        combo++;
-        scoreText.textContent = score;
-        comboText.textContent = combo;
-        targetNote.el.remove();
-        noteList = noteList.filter(x=>x!==targetNote);
+}
+
+// 右键标记旗子
+function markFlag(x,y){
+    if(gameOver || opened[y][x]) return;
+    const cell = getCellDom(x,y);
+    flagged[y][x] = !flagged[y][x];
+    if(flagged[y][x]){
+        cell.textContent = "🚩";
+        cell.classList.add("flag");
+        mineCountText.textContent = Number(mineCountText.textContent)-1;
+    }else{
+        cell.textContent = "";
+        cell.classList.remove("flag");
+        mineCountText.textContent = Number(mineCountText.textContent)+1;
     }
 }
 
-// PC键盘监听
-document.addEventListener('keydown',e=>{
-    const k = e.key.toLowerCase();
-    const idx = keyName.indexOf(k);
-    if(idx !== -1 && idx < laneCount) hitLane(idx);
-})
-// 移动端触屏按钮绑定
-document.querySelectorAll(".touch-key").forEach(btn=>{
-    btn.addEventListener("touchstart",ev=>{
-        ev.preventDefault();
-        const idx = parseInt(btn.dataset.key);
-        if(idx < laneCount) hitLane(idx);
-    })
-})
-
-// =========【核心修复：彻底停止所有游戏与音频】 =========
-function stopGame(){
-    gameRunning = false;
-    startGameBtn.disabled = false;
-    cancelAnimationFrame(animationId);
-    clearInterval(noteSpawnTimer);
-    // 强制停止BGM，重置播放位置，杜绝无限叠加
-    bgmAudio.pause();
-    bgmAudio.currentTime = 0;
-    noteList.forEach(n=>n.el.remove());
-    noteList = [];
+// 获取格子DOM
+function getCellDom(x,y){
+    return document.querySelector(`.cell[data-x="${x}"][data-y="${y}"]`);
 }
 
-// 开始游戏按钮
-startGameBtn.onclick = async ()=>{
-    if(gameRunning) return;
-    stopGame();
-    // 锁定按钮，防止多次点击开启多局
-    startGameBtn.disabled = true;
-    // 重置对局数据
-    score =0; combo=0;
-    scoreText.textContent=0;comboText.textContent=0;
-    // 播放BGM
-    try{ await bgmAudio.play(); }catch(e){console.log("音频等待交互");}
-    gameRunning = true;
-    gameLoop();
-    const interval = difficultyConfig[diffSelect.value].interval;
-    noteSpawnTimer = setInterval(()=>{
-        if(gameRunning) spawnNote();
-    }, interval);
-    // 一局时长45秒，结束自动停止
-    setTimeout(()=>{
-        stopGame();
-        saveRank(score);
-        updateHighScoreUI();
-        alert(`对局结束！得分：${score}｜最高连击：${combo}`);
-    },45000);
+// 踩雷：展示全部地雷
+function showAllMine(){
+    for(let y=0;y<ROW;y++){
+        for(let x=0;x<COL;x++){
+            if(grid[y][x]===-1){
+                const cell = getCellDom(x,y);
+                cell.classList.add("mine");
+                cell.textContent = "💣";
+            }
+        }
+    }
 }
+
+// 判断胜利：所有非地雷格子全部打开
+function checkWin(){
+    let openTotal = 0;
+    for(let y=0;y<ROW;y++){
+        for(let x=0;x<COL;x++){
+            if(opened[y][x]) openTotal++;
+        }
+    }
+    if(openTotal === ROW*COL - MINE_NUM){
+        gameOver = true;
+        clearInterval(timerId);
+        alert(`🎉 You Win! Used ${time} seconds`);
+    }
+}
+
+// 难度切换 / 重启
+diffMine.onchange = initMineGame;
+restartMine.onclick = initMineGame;
 </script>
 </body>
 </html>

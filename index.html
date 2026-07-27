@@ -83,8 +83,8 @@
         }
         .note{
             position:absolute;
-            width:60px;
-            height:16px;
+            width:65px;
+            height:18px;
             border-radius:6px;
             background:#58a6ff;
             box-shadow: 0 0 4px #58a6ff;
@@ -307,8 +307,8 @@
         <p style="margin-top:6px;">Built with HTML & CSS | Hosted on GitHub Pages</p>
     </footer>
 
-    <!-- BGM音频资源（免费开源节拍曲） -->
-    <audio id="bgmAudio" loop preload="auto">
+    <!-- BGM音频资源 -->
+    <audio id="bgmAudio" preload="auto">
         <source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3?filename=tech-house-short-loop-118-bpm.mp3" type="audio/mpeg">
     
 
@@ -322,13 +322,16 @@ const btn2 = document.getElementById('btnPage2');
 const backBtn = document.getElementById('backNormal');
 const footerArea = document.getElementById('clickFooter');
 
+// 切换页面时强制停止游戏，杜绝后台音乐持续播放
 btn1.onclick = ()=>{
+    stopGame();
     resetAllPage();
     page1.classList.remove('page-hidden');
     btn1.disabled = true; btn2.disabled = false;
     window.scrollTo({top:0,behavior:'smooth'});
 }
 btn2.onclick = ()=>{
+    stopGame();
     resetAllPage();
     page2.classList.remove('page-hidden');
     btn1.disabled = false; btn2.disabled = true;
@@ -363,7 +366,7 @@ footerArea.onclick = ()=>{
     }
 }
 
-// ========== 音游核心全局变量 ==========
+// ========== 音游全局变量 ==========
 const gameContainer = document.getElementById('gameContainer');
 const scoreText = document.getElementById('scoreText');
 const comboText = document.getElementById('comboText');
@@ -380,18 +383,17 @@ let gameRunning = false;
 let noteList = [];
 let animationId;
 let noteSpawnTimer = null;
-// 按键映射
 const keyName = ['d','f','j','k'];
 // 难度配置
 const difficultyConfig = {
-    easy:{speed:1.8, interval:1300},
-    normal:{speed:2.7, interval:950},
-    hard:{speed:3.6, interval:650}
+    easy:{speed:1.6, interval:1350},
+    normal:{speed:2.4, interval:1000},
+    hard:{speed:3.2, interval:700}
 };
 let laneCount = 4;
-let lanePos = [45,125,215,295];
+let lanePos = [40,120,210,290];
 
-// ===== 本地存储排行榜逻辑 =====
+// ===== 本地存储排行榜 =====
 function getRankData(){
     let raw = localStorage.getItem("rhythmRank");
     return raw ? JSON.parse(raw) : [];
@@ -400,7 +402,7 @@ function saveRank(scoreVal){
     let list = getRankData();
     list.push({score:scoreVal, time:new Date().toLocaleString()});
     list.sort((a,b)=>b.score - a.score);
-    list = list.slice(0,8); //只保存前8条记录
+    list = list.slice(0,8);
     localStorage.setItem("rhythmRank", JSON.stringify(list));
     loadRankList();
 }
@@ -429,17 +431,17 @@ function updateHighScoreUI(){
 function updateLaneLayout(){
     laneCount = parseInt(laneSelect.value);
     if(laneCount ===3){
-        lanePos = [70,155,260];
+        lanePos = [60,150,260];
         touchPanel.children[3].style.display = "none";
     }else{
-        lanePos = [45,125,215,295];
+        lanePos = [40,120,210,290];
         touchPanel.children[3].style.display = "grid";
     }
 }
 laneSelect.onchange = updateLaneLayout;
 updateLaneLayout();
 
-// ===== 音符生成、判定、渲染 =====
+// ===== 音符生成、判定【重点：放大判定窗口，更容易击中】 =====
 function spawnNote(){
     if(!gameRunning) return;
     const laneIdx = Math.floor(Math.random() * laneCount);
@@ -471,7 +473,7 @@ function gameLoop(){
         const n = noteList[i];
         n.y += speed;
         n.el.style.top = n.y + 'px';
-        if(n.y > judgeLineY + 40){
+        if(n.y > judgeLineY + 60){
             combo = 0;
             comboText.textContent = combo;
             showJudge("Miss", lanePos[n.lane]);
@@ -481,7 +483,8 @@ function gameLoop(){
     }
     animationId = requestAnimationFrame(gameLoop);
 }
-// 按键判定统一处理
+
+// 按键判定逻辑【大幅放宽判定区间】
 function hitLane(laneIdx){
     if(!gameRunning) return;
     const judgeY = gameContainer.offsetHeight - 100;
@@ -496,8 +499,9 @@ function hitLane(laneIdx){
             }
         }
     }
-    if(targetNote && minDist < 50){
-        if(minDist <18){
+    // ========= 关键修复：扩大判定范围，更容易击中 =========
+    if(targetNote && minDist < 65){
+        if(minDist <22){
             score +=100;
             showJudge("Perfect", lanePos[laneIdx]);
         }else{
@@ -511,6 +515,7 @@ function hitLane(laneIdx){
         noteList = noteList.filter(x=>x!==targetNote);
     }
 }
+
 // PC键盘监听
 document.addEventListener('keydown',e=>{
     const k = e.key.toLowerCase();
@@ -526,11 +531,13 @@ document.querySelectorAll(".touch-key").forEach(btn=>{
     })
 })
 
-// 停止游戏全部资源
+// =========【核心修复：彻底停止所有游戏与音频】 =========
 function stopGame(){
     gameRunning = false;
+    startGameBtn.disabled = false;
     cancelAnimationFrame(animationId);
     clearInterval(noteSpawnTimer);
+    // 强制停止BGM，重置播放位置，杜绝无限叠加
     bgmAudio.pause();
     bgmAudio.currentTime = 0;
     noteList.forEach(n=>n.el.remove());
@@ -541,6 +548,8 @@ function stopGame(){
 startGameBtn.onclick = async ()=>{
     if(gameRunning) return;
     stopGame();
+    // 锁定按钮，防止多次点击开启多局
+    startGameBtn.disabled = true;
     // 重置对局数据
     score =0; combo=0;
     scoreText.textContent=0;comboText.textContent=0;
@@ -552,7 +561,7 @@ startGameBtn.onclick = async ()=>{
     noteSpawnTimer = setInterval(()=>{
         if(gameRunning) spawnNote();
     }, interval);
-    // 一局时长45秒
+    // 一局时长45秒，结束自动停止
     setTimeout(()=>{
         stopGame();
         saveRank(score);

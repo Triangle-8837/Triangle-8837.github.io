@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robert Wang | 王新睿 | Personal Homepage</title>
+    <title>Robert Wang | Personal Homepage</title>
     <style>
         *{margin: 0;padding: 0;box-sizing: border-box;font-family: "Segoe UI", Fira Code, sans-serif;}
         body{background:#0d1117;color:#f0f6fc;padding:40px 20px;max-width:800px;margin:0 auto;}
@@ -15,11 +15,9 @@
         .info-block{margin:25px 0;line-height:2;}
         .badge-box{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:15px 0;}
         .motto{margin:20px;color:#58a6ff;font-style:italic;}
-        /* 贪吃蛇图片自适应 */
         .snake-img{max-width:100%;width:700px;height:auto;}
         a{color:#58a6ff;text-decoration:none;}
         a:hover{text-decoration:underline;}
-        /* 底部版权 */
         footer {
             margin-top: 60px;
             padding-top: 30px;
@@ -27,83 +25,247 @@
             text-align: center;
             opacity: 0.65;
             font-size: 14px;
+            /* 点击区域扩展，用于彩蛋触发 */
+            cursor:pointer;
+        }
+
+        /* ===== 分页样式 ===== */
+        .page{
+            transition: opacity 0.4s ease;
+        }
+        .page-hidden{
+            display: none;
+            opacity: 0;
+        }
+        .page-btn-group{
+            margin-top:50px;
+            display:flex;
+            gap:16px;
+            justify-content:center;
+        }
+        .page-btn{
+            padding: 10px 26px;
+            background:#238636;
+            color:white;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:16px;
+            transition: 0.2s;
+        }
+        .page-btn:hover{
+            background:#2ea043;
+        }
+        .page-btn:disabled{
+            background:#30363d;
+            cursor:not-allowed;
+            opacity:0.6;
+        }
+
+        /* 彩蛋页面专属样式 */
+        .easter-egg-text{
+            color:#79c0ff;
+            font-size:18px;
+            line-height: 2.2;
         }
     </style>
 </head>
 <body>
-    <!-- 打字动画：新增中文姓名一行 -->
-    <div class="center">
-        <img src="https://readme-typing-svg.demolab.com/?lines=Hi,+I'm+Robert+Wang;中文名：王新睿;GitHub+Beginner;Frontend+Learner;Keep+Learning+Every+Day&font=Fira%20Code&center=true&width=600&height=50&color=36BCF7" alt="typing">
-    </div>
 
-    <!-- 头像 -->
-    <div class="center">
-        <img class="avatar" src="./avatar.jpg" alt="avatar">
-    </div>
-
-    <div class="center">
-        <h1>Hello, I'm Robert Wang（王新睿）</h1>
-        <h3>GitHub Beginner | Frontend Learner | Coding Enthusiast</h3>
-    </div>
-    <hr>
-
-    <div class="info-block">
-        <h2>🧾 Basic Information</h2>
-        <p>GitHub Username：Triangle-8837</p>
-        <p>Chinese Name：王新睿</p>
-        <p>Pronouns：he/him</p>
-        <p>Joined GitHub：2026 July</p>
-        <p>Email：<a href="mailto:jcnzybwj2c@privaterelay.appleid.com">jcnzybwj2c@privaterelay.appleid.com</a></p>
-    </div>
-    <hr>
-
-    <div>
-        <h2 class="center">🛠️ Tech Stack</h2>
-        <div class="badge-box">
-            <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
-            <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/>
-            <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/>
-            <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
-            <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
-            <img src="https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=black"/>
-            <!-- 新增 VSCode 徽章 -->
-            <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white"/>
+    <!-- ========== 第一页（首页） ========== -->
+    <div id="page1" class="page">
+        <!-- 打字动画 -->
+        <div class="center">
+            <img src="https://readme-typing-svg.demolab.com/?lines=Hi,+I'm+Robert+Wang;GitHub+Beginner;Frontend+Learner;Keep+Learning+Every+Day&font=Fira%20Code&center=true&width=600&height=50&color=36BCF7" alt="typing">
         </div>
-        <div class="badge-box">
-            <img src="https://img.shields.io/badge/Next_Learn-Vue.js-green?style=flat-square"/>
-            <img src="https://img.shields.io/badge/Status-In_Progress-orange?style=flat-square"/>
+
+        <!-- 头像 -->
+        <div class="center">
+            <img class="avatar" src="./avatar.jpg" alt="avatar">
+        </div>
+
+        <div class="center">
+            <h1>Hello, I'm Robert Wang</h1>
+            <h3>GitHub Beginner | Frontend Learner | Coding Enthusiast</h3>
+        </div>
+        <hr>
+
+        <div class="info-block">
+            <h2>🧾 Basic Information</h2>
+            <p>GitHub Username：Triangle-8837</p>
+            <p>Pronouns：he/him</p>
+            <p>Joined GitHub：2026 July</p>
+            <p>Email：<a href="mailto:jcnzybwj2c@privaterelay.appleid.com">jcnzybwj2c@privaterelay.appleid.com</a></p>
+        </div>
+        <hr>
+
+        <div>
+            <h2 class="center">🛠️ Tech Stack</h2>
+            <div class="badge-box">
+                <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
+                <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/>
+                <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/>
+                <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
+                <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+                <img src="https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=black"/>
+                <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white"/>
+            </div>
+            <div class="badge-box">
+                <img src="https://img.shields.io/badge/Next_Learn-Vue.js-green?style=flat-square"/>
+                <img src="https://img.shields.io/badge/Status-In_Progress-orange?style=flat-square"/>
+            </div>
+        </div>
+        <hr>
+
+        <div class="center">
+            <img src="https://komarev.com/ghpvc/?username=Triangle-8837&label=Profile%20Visitors&color=0e75b6&style=flat-square">
+        </div>
+        <hr>
+
+        <div class="info-block">
+            <h2 class="center">📝 Learning Plans</h2>
+            <ul style="width:fit-content;margin:0 auto;line-height:2">
+                <li>Consolidate fundamental JavaScript knowledge</li>
+                <li>Build simple static websites manually</li>
+                <li>Deploy static pages via GitHub Pages</li>
+            </ul>
+            <p class="motto center">Personal Motto: To choose time is to save time.</p>
+        </div>
+
+        <!-- 🐍 Contribution Snake -->
+        <div class="center" style="margin-top:40px;">
+            <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake-dark.svg">
+                <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake.svg">
+                <img class="snake-img" alt="GitHub Contribution Snake" src="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake.svg">
+            </picture>
         </div>
     </div>
-    <hr>
 
-    <div class="center">
-        <img src="https://komarev.com/ghpvc/?username=Triangle-8837&label=Profile%20Visitors&color=0e75b6&style=flat-square">
+    <!-- ========== 第二页 兴趣爱好 ========== -->
+    <div id="page2" class="page page-hidden">
+        <div class="center">
+            <h1>🎮 My Hobbies</h1>
+            <h3>Things I love to do in spare time</h3>
+        </div>
+        <hr>
+
+        <div class="info-block">
+            <h2>🎮 Video Games</h2>
+            <ul style="width:fit-content;margin:0 auto;line-height:2;">
+                <li>I enjoy both PC and console games.</li>
+                <li>Devices: Xbox Series X, PlayStation 5, Nintendo Switch (1st Gen)</li>
+                <li>I also own a Steam account for PC gaming.</li>
+            </ul>
+        </div>
+        <hr>
+
+        <div class="info-block">
+            <h2>📷 Photography</h2>
+            <ul style="width:fit-content;margin:0 auto;line-height:2;">
+                <li>Photography is one of my favorite hobbies.</li>
+                <li>Award: Special Prize in school photography competition.</li>
+            </ul>
+        </div>
+        <hr>
+
+        <div class="info-block">
+            <h2>💻 Coding</h2>
+            <p class="center">Programming is not only my study direction, but also my hobby.</p>
+        </div>
     </div>
-    <hr>
 
-    <div class="info-block">
-        <h2 class="center">📝 Learning Plans</h2>
-        <ul style="width:fit-content;margin:0 auto;line-height:2">
-            <li>Consolidate fundamental JavaScript knowledge</li>
-            <li>Build simple static websites manually</li>
-            <li>Deploy static pages via GitHub Pages</li>
-        </ul>
-        <p class="motto center">Personal Motto: To choose time is to save time.</p>
+    <!-- ========== 彩蛋隐藏页面 ========== -->
+    <div id="easterEggPage" class="page page-hidden">
+        <div class="center">
+            <h1>✨ Secret Easter Egg</h1>
+            <hr>
+            <div class="easter-egg-text">
+                <p>Congratulations on finding the hidden secret!</p>
+                <p>Keep coding, keep exploring, keep chasing what you love.</p>
+                <p>Every effort will pay off eventually.</p>
+                <br>
+                <p>— Robert Wang</p>
+            </div>
+            <br>
+            <button class="page-btn" id="backNormal">← Back to Homepage</button>
+        </div>
     </div>
 
-    <!-- 🐍 Contribution Snake（明暗模式自动切换） -->
-    <div class="center" style="margin-top:40px;">
-        <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake-dark.svg">
-            <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake.svg">
-            <img class="snake-img" alt="GitHub Contribution Snake" src="https://raw.githubusercontent.com/Triangle-8837/Triangle-8837/output/github-contribution-grid-snake.svg">
-        </picture>
+    <!-- ========== 分页切换按钮 ========== -->
+    <div class="page-btn-group">
+        <button class="page-btn" id="btnPage1" disabled>🏠 首页</button>
+        <button class="page-btn" id="btnPage2">📄 兴趣爱好</button>
     </div>
 
-    <!-- 📄 Footer 版权文字 -->
-    <footer>
-        <p>Copyright © 2026 Robert Wang（王新睿）. All Rights Reserved.</p>
+    <footer id="clickFooter">
+        <p>Copyright © 2026 Robert Wang. All Rights Reserved.</p>
         <p style="margin-top:6px;">Built with HTML & CSS | Hosted on GitHub Pages</p>
     </footer>
+
+
+    <!-- JS逻辑 -->
+    <script>
+        // 页面元素
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const eggPage = document.getElementById('easterEggPage');
+        const btn1 = document.getElementById('btnPage1');
+        const btn2 = document.getElementById('btnPage2');
+        const backBtn = document.getElementById('backNormal');
+        const footerArea = document.getElementById('clickFooter');
+
+        // 普通分页切换
+        btn1.addEventListener('click', ()=>{
+            resetAllPage();
+            page1.classList.remove('page-hidden');
+            btn1.disabled = true;
+            btn2.disabled = false;
+            window.scrollTo({top:0,behavior:'smooth'});
+        })
+        btn2.addEventListener('click', ()=>{
+            resetAllPage();
+            page2.classList.remove('page-hidden');
+            btn1.disabled = false;
+            btn2.disabled = true;
+            window.scrollTo({top:0,behavior:'smooth'});
+        })
+        backBtn.addEventListener('click',()=>{
+            resetAllPage();
+            page1.classList.remove('page-hidden');
+            btn1.disabled = true;
+            btn2.disabled = false;
+            window.scrollTo({top:0,behavior:'smooth'});
+        })
+
+        function resetAllPage(){
+            page1.classList.add('page-hidden');
+            page2.classList.add('page-hidden');
+            eggPage.classList.add('page-hidden');
+        }
+
+        // ===== 彩蛋连续点击逻辑 =====
+        let clickCount = 0;
+        let timer = null;
+        const NEED_CLICK_TIMES = 5; // 需要连续点击5次
+
+        footerArea.addEventListener('click', ()=>{
+            clickCount++;
+            // 重置倒计时
+            clearTimeout(timer);
+            timer = setTimeout(()=>{
+                clickCount = 0;
+            },3000); // 3秒不点击就清零计数
+
+            if(clickCount >= NEED_CLICK_TIMES){
+                // 触发彩蛋界面
+                resetAllPage();
+                eggPage.classList.remove('page-hidden');
+                clickCount = 0;
+                clearTimeout(timer);
+                window.scrollTo({top:0,behavior:'smooth'});
+            }
+        })
+    </script>
 </body>
 </html>
